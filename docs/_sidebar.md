@@ -1,1 +1,3 @@
 - [Home](/)
+- [APL](apl/index.md)
+  - [Sorting](apl/sorting.md)
