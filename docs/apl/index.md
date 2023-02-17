@@ -1,3 +1,5 @@
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-apl.min.js -->
+
 # Re: APL
 
 !> __Warning__ this page is a still draft

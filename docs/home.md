@@ -10,11 +10,11 @@ It refers to the act of buying lots of books and not reading them, leading to a 
 
 <!-- tabs:start -->
 
-#### **MFW emojis**
+## **MFW emojis**
 
 :sunglasses:
 
-#### **MFW tabs**
+## **MFW tabs**
 
 :astonished::heart_eyes:
 

@@ -1,3 +1,6 @@
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-swift.min.js -->
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-haskell.min.js -->
+
 # Re: Guards
 
 Guards are statements that control the flow of execution of code, generally placed at the top of a scope, to _guard_ the rest of the code from bad state.

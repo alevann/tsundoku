@@ -1,3 +1,5 @@
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-apl.min.js -->
+
 # Functions
 
 Functions in APL can only be one of three types (this is a lie):

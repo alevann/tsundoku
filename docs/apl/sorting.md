@@ -1,3 +1,5 @@
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-apl.min.js -->
+
 # Sorting in APL
 
 I'm no programming guru, so this may be common in some other math heavy languages, but I've never seen anything quite like it.
