@@ -10,12 +10,14 @@ It refers to the act of buying lots of books and not reading them, leading to a 
 
 <!-- tabs:start -->
 
-#### **My face when emojis**
+#### **MFW emojis**
 
 :sunglasses:
 
-#### **My face when tabs**
+#### **MFW tabs**
 
 :astonished::heart_eyes:
 
 <!-- tabs:end -->
+
+LIST HEADINGS IN THE SIDEBAR ARE SO ANNOYING!!! why cant i just have both a link, and a properly styled heading :sob:

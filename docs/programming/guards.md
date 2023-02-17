@@ -46,7 +46,7 @@ async function login (username, password) {
 Here the logic flows **straight downwards**, and each branch ends before the following begins.
 The function starts with a bunch of validation and all the unhappy paths, while the happy path sits at the end of the function.
 
-While it may be easy to think that "guards" is just a name for if statements at the top of a scope, **they are not**.
+It may be easy to think that "guards" is just a name for if statements at the top of a scope, but **they are not**.
 Guards are meant to be _short and easy to read_ at a glance, and most importantly they _terminate the execution of the scope early_.
 
 The following example further illustrates how to differentiate a guard against an if statement.
@@ -76,7 +76,7 @@ async function login (username, password) {
   
   const didSaveCredentials = await saveLoginCredentials(username, password)
 
-  // This is not a guard (it's at the end of the function)
+  // This is also not a guard
   if (didSaveCredentials) {
     moveToNextScreen()
   } else {
@@ -86,7 +86,6 @@ async function login (username, password) {
 ```
 
 Finally, here are some more examples of guard statements in other languages.
-Notice that while each language does its own thing, guard clauses all protect the code following
 
 <!-- tabs:start -->
 
@@ -100,7 +99,9 @@ Swift quite literally contains a `guard` keyword, it takes a condition and is al
 ```swift
 func login (username u: String?, password p: String?) -> Bool {
   guard u?.count ?? 0 > 0 && p?.count ?? 0 > 0 else { return false }
-  return true
+
+  /* Omitted for brevity */
+  return response.code === 200
 }
 ```
 
@@ -110,10 +111,9 @@ Check out the docs about the guard statement [here][swift-docs].
 
 ## **Haskell**
 
-Haskell has an interesting approach to guard clauses, instead of having an explicit check at the start of a function, Haskell uses guards to overload the same function.
+As always, functional programming languages do things differently.
+In Haskell (as in many other functional languages) guard clauses are called **pattern guards**, and instead of having explicit checks at the start of a function, Haskell uses guards to overload the same function.
 If a call doesn't match any overload, a compilation error is thrown.
-
-> __Note__ it appears this is a common pattern in functional languages, since Erlang has a similar concept
 
 ```hs
 explainReturnCodes :: Int -> Int -> String
@@ -129,3 +129,31 @@ Read more about pattern guards in Haskell [here][haskell-docs].
 [haskell-docs]: https://wiki.haskell.org/Pattern_guard
 
 <!-- tabs:end -->
+
+## When to not use guards
+
+Beware of the temptation of using guards everywhere, not everything _should_ be a guard.
+Avoid using guards, or at least pay extra attention, when:
+
+1. An explicit state is required
+
+> __Note__ this list is still a work in progress
+
+Take the following as an example, notice how in the first function, the user is required to be an admin user, whereas in the second case it is simply required to not be a normal user:
+
+```js
+function updateImportantObject (user) {
+  if (user.isAdmin()) {
+    doImportantObjectUpdate()
+  }
+}
+
+function updateImportantObject_withGuards (user) {
+  if (user.isNormalUser()) {
+    return
+  }
+  doImportantObjectUpdate()
+}
+```
+
+Of course this is a simple example, but while the difference is obvious here, in real codebases it can lead to serious security issues which are hard to spot.

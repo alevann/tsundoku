@@ -1,6 +1,9 @@
 - [Home](/)
 
-- Programming Stuff
+- Programming æsthetics
   - [Guards](programming/guards.md)
+
+- Functional programming
   - [APL](apl/index.md)
-    - [Sorting](apl/sorting.md)
+    - [Functions](apl/functions.md)
+    - [Sorting / Grading](apl/sorting.md)

@@ -7,12 +7,6 @@ Hidden in these pages there's a bunch of resources, explanations, and other thin
 
 If you're not familiar with APL, I suggest reading the following getting started section, otherwise use the sidebar to jump into some topic.
 
-* [Re: APL (this page)](#re--apl)
-* [Some history](#some-history)
-* [Dialects](#dialects)
-* [Getting started](#getting-started)
-  * [Functions](#functions)
-
 ## Some history
 
 APL was developed in the 1960s by Kenneth E. Iverson, a canadian computer scientist famous for creating a programming language.
@@ -49,48 +43,9 @@ fibonacci ← {
 }
 ```
 
-Quite intuitive if I do say so myself, regardless, let me quickly introduce _some_ of those hieroglyphics:
+Quite intuitive if I do say so myself.
 
-> __Note__ for simplicity's sake I am mixing monadic and dyadic descriptions in the same category depending on how they are used in the Fibonacci example above
-
-| Symbol      | Name       | Function description              |
-|-------------|------------|-----------------------------------|
-| `←`         | left arrow | The usual assignment operator     |
-| `{` and `}` | braces     | Function declaration / definition |
-| `∊`         | epsilon    |                                   |
-| `¨`         | each       | For each                          |
-
-<sub>Part of the table was taken from [trying apl][1]</sub>
-
-### Functions
-
-Functions in APL can only be one of three types (this is a lie):
-
-1. niladic
-2. monadic
-3. dyadic
-
-Each type of function determines the number of arguments expected by the function.
-Functions that behave differently based on the number of arguments are called **ambivalent**.
-
-Function arguments have magic names that you can use to access them, kind of like how in bash you can use `$n`, in APL you can use the totally convenient `⍵` to reference the RHS and `⍺` to reference the LHS. No, `⍵` and `⍺` may not be replaced with `w` and `a`, and no, `⍵` and `⍺` cannot be changed in any way.
-
-```apl
-⍝ Increments a number: defaults to +1 when used as monadic,
-⍝ but allows to specify a different value when used as dyadic 
-increment ← {
-  ⍺ ← 1         ⍝ This statement is skipped, if ⍺ is provided 
-  ⍵ + ⍺
-}
-
-⍝ output: 6 (monadic call)
-increment 5
-
-⍝ output: 7 (dyadic call)
-2 increment 5
-```
-
-[niladic]: https://aplwiki.com/wiki/Niladic_function
+##
 
 ## Sources and references
 
