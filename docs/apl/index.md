@@ -47,8 +47,6 @@ fibonacci ← {
 
 Quite intuitive if I do say so myself.
 
-##
-
 ## Sources and references
 
 * [trying apl][1]

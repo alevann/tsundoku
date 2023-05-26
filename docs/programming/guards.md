@@ -9,7 +9,9 @@ Guards statements also have the excellent property of producing code that is eas
 
 [source]: https://www.youtube.com/watch?v=iOVbAmknKUk
 
-For the sake of this explanation let's imagine a `login` function, which does some input validation, performs the login, then returns `true` if the login is successful.
+> __Note__ the post is written in JavaScript but the concept applies to any language
+
+For the sake of this explanation let's imagine a `login` function, which does some input validation, performs the login request, then returns `true` if the login is successful.
 
 ```js
 async function login (username, password) {
@@ -52,41 +54,19 @@ The function starts with a bunch of validation and all the unhappy paths, while 
 It may be easy to think that "guards" is just a name for if statements at the top of a scope, but **they are not**.
 Guards are meant to be _short and easy to read_ at a glance, and most importantly they _terminate the execution of the scope early_.
 
-The following example further illustrates how to differentiate a guard against an if statement.
-
 ```js
-async function login (username, password) {
-  // These are guards
-  if (username === null || username.length === 0) {
-    return console.warn('username cannot be null')
-  }
-  if (password === null || password.length === 0) {
-    return console.warn('password cannot be null')
+async function save (credentials, store) {
+  // This is not a guard
+  if (!store) {
+    store = getDefaultStore()
   }
 
-  let response = await doLogin(username, password)
-  
-  // This is also a guard
-  if (response.code > 399) {
-    console.warn('Login request failed', response)
-    return moveToErrorScreen()
-  }
-  
-  // This is not a guard (does not quit the function early)
-  if (response.code > 299) {
-    response = await followRedirect(response)
-  }
-  
-  const didSaveCredentials = await saveLoginCredentials(username, password)
-
-  // This is also not a guard
-  if (didSaveCredentials) {
-    moveToNextScreen()
-  } else {
-    moveToErrorScreen()
-  }
+  return await saveLoginCredentials(credentials, store)
 }
 ```
+
+> __Note__ while guards can technically appear in the middle of a function, it's generally an indicator that the function you're writing does too many things.
+> Instead, split the function into multiple, smaller functions.
 
 Finally, here are some more examples of guard statements in other languages.
 
@@ -114,49 +94,22 @@ Check out the docs about the guard statement [here][swift-docs].
 
 ## **Haskell**
 
-As always, functional programming languages do things differently.
-In Haskell (as in many other functional languages) guard clauses are called **pattern guards**, and instead of having explicit checks at the start of a function, Haskell uses guards to overload the same function.
+As always, functional languages do things differently.
+In Haskell (as in many other functional languages) guard clauses are called **pattern guards**, and instead of having explicit checks at the start of a function, it's overloaded once per pattern.
 If a call doesn't match any overload, a compilation error is thrown.
 
 ```hs
-explainReturnCodes :: Int -> Int -> String
-explainReturnCodes x y
-  | z == 0 = "Both programs succeeded"
-  | z >= 2 = "Both programs failed"
-  | otherwise = "Only one program failed"
-  where z = x + y
+holeScore :: Int -> Int -> String
+holeScore strokes par
+ | score < 0 = show (abs score) ++ " under par"
+ | score == 0 = "level par"
+ | otherwise = show(score) ++ " over par"
+ where score = strokes-par
 ```
 
-Read more about pattern guards in Haskell [here][haskell-docs].
+Read more about pattern guards in Haskell [here][haskell-docs]. Example taken from [here][haskell-pattern-guard-example].
 
 [haskell-docs]: https://wiki.haskell.org/Pattern_guard
+[haskell-pattern-guard-example]: https://www.futurelearn.com/info/courses/functional-programming-haskell/0/steps/27226
 
 <!-- tabs:end -->
-
-## When to not use guards
-
-Beware of the temptation of using guards everywhere, not everything _should_ be a guard.
-Avoid using guards, or at least pay extra attention, when:
-
-1. An explicit state is required
-
-> __Note__ this list is still a work in progress
-
-Take the following as an example, notice how in the first function, the user is required to be an admin user, whereas in the second case it is simply required to not be a normal user:
-
-```js
-function updateImportantObject (user) {
-  if (user.isAdmin()) {
-    doImportantObjectUpdate()
-  }
-}
-
-function updateImportantObject_withGuards (user) {
-  if (user.isNormalUser()) {
-    return
-  }
-  doImportantObjectUpdate()
-}
-```
-
-Of course this is a simple example, but while the difference is obvious here, in real codebases it can lead to serious security issues which are hard to spot.

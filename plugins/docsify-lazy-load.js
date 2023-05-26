@@ -36,6 +36,6 @@
     })
   }
 
-  $docsify = $docsify || {}
-  $docsify.plugins = [].concat($docsify.plugins || [], lazyLoad)
+  $docsify = $docsify ?? {}
+  $docsify.plugins = [].concat($docsify.plugins ?? [], lazyLoad)
 })()
