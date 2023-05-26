@@ -1,6 +1,6 @@
 (function () {
 
-  const createCat = () => {
+  const createCatContainer = () => {
     const container = document.createElement('div')
     container.style.position = 'absolute'
     container.style.inset = '0'
@@ -14,94 +14,99 @@
     bounceBody.style.overflow = 'hidden'
     container.appendChild(bounceBody)
 
+    return [container, bounceBody]
+  }
+
+  const createCat = (bounceBody) => {
     const img = document.createElement('img')
     img.style.position = 'absolute'
-    img.style.left = `calc(50vw - ${imgWidth}px)`
-    img.style.top = `calc(50vh - ${imgHeight}px)`
+    img.style.left = `0`
+    img.style.top = `0`
     img.style.width = `${imgWidth}px`
     img.style.height = `${imgHeight}px`
     img.src = '/docs/.assets/funny-cat.gif'
-    img.alt = 'funny cat gif'
-    img.className = 'funny-cat-gif-query-selector-class'
+    img.alt = 'funny cat gif bouncing around'
     bounceBody.appendChild(img)
 
-    return container
+    return img
   }
 
   const reset = () => {
-    const catImage = catRef.querySelector('.funny-cat-gif-query-selector-class')
-    if (!catImage) {
+    if (!catContainer) {
       return
     }
 
     width =
       window.innerWidth ||
       document.documentElement.clientWidth ||
-      document.body.clientWidth;
+      document.body.clientWidth
 
     height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
-      document.body.clientHeight;
+      document.body.clientHeight
 
-    pause =
-      width <= catImage.getBoundingClientRect().width ||
-      height <= catImage.getBoundingClientRect().height;
-
-    catImage.style.left = `100px`
-    catImage.style.top = `100px`
+    catRef.forEach(cat => cat.style.left = `${Math.floor(Math.random() * (width - imgWidth - 1)) + 20}px`)
+    catRef.forEach(cat => cat.style.top = `${Math.floor(Math.random() * (height - imgHeight - 1)) + 20}px`)
   }
 
-  let catRef = null
+  let catContainer = null
+  let catRef = []
   let intRef = null
   const FPS = 60
 
   let width
     , height
-    , velocityX = 2
-    , velocityY = 2
-    , pause = true
 
-  const imgHeight = 169.3
-  const imgWidth = 213.3
+  const imgHeight = 101.6
+  const imgWidth = 128
 
-  const setupCat = () => {
-    if (!catRef) {
-      catRef = createCat()
-    }
-    catRef.style.visibility = 'visible'
-    reset()
-    window.addEventListener('resize', reset, true)
-
-    intRef = setInterval(() => {
-      if (pause) return;
-
-      const catImage = catRef.querySelector('.funny-cat-gif-query-selector-class')
-      let rect = catImage.getBoundingClientRect()
+  const catTick = () => {
+    catRef.forEach(cat => {
+      let rect = cat.getBoundingClientRect()
 
       let left = rect.x
       let top = rect.y
 
       if (left + rect.width >= width || left <= 0) {
-        velocityX = -velocityX
+        cat.velocityX = -cat.velocityX
       }
 
       if (top + rect.height >= height || top <= 0) {
-        velocityY = -velocityY
+        cat.velocityY = -cat.velocityY
       }
 
-      catImage.style.left = rect.x + velocityX + 'px'
-      catImage.style.top = rect.y + velocityY + 'px'
-    }, 1000 / FPS)
+      cat.style.left = rect.x + cat.velocityX + 'px'
+      cat.style.top = rect.y + cat.velocityY + 'px'
+    })
+  }
+
+  const setupCat = () => {
+    if (!catContainer) {
+      const [container, bounceBody] = createCatContainer()
+      for (let i = 0; i < 3; i++) {
+        const ref = createCat(bounceBody)
+        const spd = Math.floor(Math.random() * 5) + 2
+        ref.velocityX = Math.random() > .5 ? spd : -spd
+        ref.velocityY = Math.random() > .5 ? spd : -spd
+        catRef.push(ref)
+      }
+      catContainer = container
+    }
+    catContainer.style.visibility = 'visible'
+    reset()
+    window.addEventListener('resize', reset, true)
+
+    intRef = setInterval(catTick, 1000 / FPS)
   }
 
   const cleanupCat = () => {
     clearInterval(intRef)
 
-    if (!catRef) {
+    if (!catContainer) {
       return
     }
-    catRef.style.visibility = 'hidden'
+    catContainer.style.visibility = 'hidden'
     window.removeEventListener('resize', reset)
   }
 
