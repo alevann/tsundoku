@@ -20,4 +20,4 @@ YOOO tabs be looking fresh AF :fire::fire::fire:
 
 <!-- tabs:end -->
 
-LIST HEADINGS IN THE SIDEBAR ARE SO ANNOYING!!! why cant i just have both a link, and a properly styled heading :sob:
+![funny cat gif](.assets/funny-cat.gif)
