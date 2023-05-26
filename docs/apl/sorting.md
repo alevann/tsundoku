@@ -1,4 +1,5 @@
 <!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-apl.min.js -->
+<!-- lazy:https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js -->
 
 # Sorting in APL
 
@@ -41,7 +42,7 @@ c <- a[b]
 
 You know a concept is easy to grasp when all you need to explain it is a definition, an example code snippet, and another example code snippet this time in another, imperative language:
 
-```python
+```py
 # The equivalent of the previous APL code in python
 a = [33, 18, 97, 2, 54]
 b = GradeUp(a)
