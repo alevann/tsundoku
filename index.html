@@ -24,6 +24,23 @@
     }
   </style>
 
+  <!-- Change the styling in docsify-example-panels, this is all I need -->
+  <style>
+    .docsify-example-panels {
+      display: flex;
+    }
+    .docsify-example-panel {
+      max-width: initial !important;
+      width: 100% !important;
+      float: none !important;
+    }
+    @media only screen and (max-width: 1300px) {
+      .docsify-example-panels {
+        flex-direction: column;
+      }
+    }
+  </style>
+
 </head>
 <body>
 
@@ -46,10 +63,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/docsify-example-panels"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-progress@latest/dist/progress.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
   <script src="./plugins/docsify-lazy-load.js"></script>
+  <script src="./plugins/docsify-cat.js"></script>
 
 </body>
 </html>
